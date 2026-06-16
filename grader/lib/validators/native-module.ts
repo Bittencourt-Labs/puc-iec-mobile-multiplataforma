@@ -8,7 +8,7 @@
  *   3. Módulo nativo + tipos TS (Expo Modules OU TurboModule)  — 2pts
  *   4. Uso real no app (chamada com efeito na UI)              — 2pts
  *  Parte 2 — Relatório (7):
- *   5. Mecanismo técnico de cada stack (RN/Flutter/KMP/Nativo) — 3pts [MANUAL]
+ *   5. Mecanismo técnico de cada stack (RN/Flutter/Nativo) — 3pts [MANUAL]
  *   6. Matriz quantitativa com pesos                           — 2pts
  *   7. Decisão final defendida                                 — 1pt  [MANUAL]
  *   8. ≥3 referências                                          — 1pt
@@ -113,18 +113,18 @@ async function main() {
   // ---- 5. Mecanismo técnico de cada stack — MANUAL ----
   criteria.push({
     id: 'mecanismo',
-    description: 'Relatório: mecanismo técnico de cada stack (RN/Flutter/KMP/Nativo)',
+    description: 'Relatório: mecanismo técnico de cada stack (RN/Flutter/Nativo)',
     weight: 3,
     manual: true,
     earned: 0,
     publicNote: 'Profundidade técnica do relatório — avaliada na leitura (Canvas)',
   });
 
-  // Relatório comparativo = o .md que cita as 4 stacks (Flutter + KMP)
+  // Relatório comparativo = o .md que cita as 3 stacks (Flutter + nativo)
   const reportFile = mdFiles
     .filter((f) => !/readme/i.test(basename(f)))
     .map((f) => read(f))
-    .find((c) => /flutter/i.test(c) && /(kmp|kotlin multiplatform)/i.test(c));
+    .find((c) => /flutter/i.test(c) && /nativo/i.test(c));
   const report = reportFile ?? '';
 
   // ---- 6. Matriz quantitativa com pesos ----
@@ -138,7 +138,7 @@ async function main() {
       ? 'Matriz com stacks + pesos detectada'
       : report
         ? 'Tabela comparativa sem pesos claros (peso/%/weight)'
-        : 'Relatório comparativo (cita Flutter+KMP) não encontrado',
+        : 'Relatório comparativo (cita Flutter+nativo) não encontrado',
   });
 
   // ---- 7. Decisão final defendida — MANUAL ----
