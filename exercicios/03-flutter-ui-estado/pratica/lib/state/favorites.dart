@@ -4,7 +4,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ── Ex2 · TASK 2 — implemente o provider de favoritos ──────────────────
+// ── Ex2 · TASK 2 — implemente o provider de favoritos · 🧑‍🏫 EM AULA (juntos) ──────────────────
 // Guarde os ids favoritados (um Set<int>) e exponha toggle(id):
 //
 //   class FavoritesNotifier extends Notifier<Set<int>> {

@@ -30,6 +30,8 @@ flutter run -d chrome   # o app já abre (lista de filmes) — sem emulador, sem
 
 ---
 
+> **📍 Em aula × em casa:** fazemos **juntos (🧑‍🏫)** o **TASK 1** (compor o card) e o **TASK 2** (criar o provider) — o modelo de cada padrão. Os **TASK 3 e 4 (🧑‍💻)** você termina **sozinho** (parte solo avaliativa).
+
 ## Exercício 1 — UI: componha o `MovieCard` (Ex1)
 Hoje o card mostra **só o título**. Em `lib/widgets/movie_card.dart` (TASK 1), componha:
 - `Card` → `Padding(16)` → `Column` (`crossAxisAlignment: .start`, `mainAxisSize: .min`):

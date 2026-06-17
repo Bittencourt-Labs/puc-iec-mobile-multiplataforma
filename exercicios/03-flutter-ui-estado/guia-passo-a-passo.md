@@ -2,6 +2,8 @@
 
 > O projeto **já roda** (`flutter run -d chrome`). Você completa **4 TASKs** até `flutter test` ficar verde. Rode `flutter test` no começo pra ver os 2 testes vermelhos — é seu alvo.
 
+> 🧑‍🏫 **TASK 1 e 2** a gente faz **juntos em aula** (o modelo). 🧑‍💻 **TASK 3 e 4** você termina **sozinho** em casa.
+
 ## Ex1 · TASK 1 — componha o `MovieCard`
 `lib/widgets/movie_card.dart`. Troque o stub (só título) por:
 ```dart

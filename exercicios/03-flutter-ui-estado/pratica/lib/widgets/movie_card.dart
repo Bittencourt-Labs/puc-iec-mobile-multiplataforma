@@ -15,7 +15,7 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ── Ex1 · TASK 1 — componha o MovieCard ─────────────────────────────
+    // ── Ex1 · TASK 1 — componha o MovieCard · 🧑‍🏫 EM AULA (juntos) ─────────────────────────────
     // Hoje só aparece o título. Deixe assim:
     //   Card → Padding(16) → Column(
     //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,7 @@ class MovieCard extends StatelessWidget {
     //       Text(movie.year, color: Colors.grey),
     //     ])
     //
-    // ── Ex2 · TASK 3 — coração de favorito ──────────────────────────────
+    // ── Ex2 · TASK 3 — coração de favorito · 🧑‍💻 EM CASA (sozinho) ──────────────────────────────
     // Vire `ConsumerWidget` (build(context, ref)) e:
     //   final isFav = ref.watch(favoritesProvider).contains(movie.id);
     //   ...adicione um IconButton (Icons.favorite / Icons.favorite_border) que chama

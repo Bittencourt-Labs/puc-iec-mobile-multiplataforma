@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Filmes'),
         actions: const [
-          // ── Ex2 · TASK 4 — contador de favoritos ────────────────────────
+          // ── Ex2 · TASK 4 — contador de favoritos · 🧑‍💻 EM CASA (sozinho) ────────────────────────
           // Vire `ConsumerWidget` e troque o '0' por:
           //   ref.watch(favoritesProvider).length
           Padding(
