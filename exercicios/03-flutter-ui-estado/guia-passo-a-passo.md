@@ -70,6 +70,35 @@ Widget build(BuildContext context, WidgetRef ref) {
   // ... no AppBar actions: Text('♥ $count')
 }
 ```
-Rode **`flutter test`** → o **Ex2** fica verde. 🎉
+Rode **`flutter test`** → *"favoritar reflete…"* fica verde. 🎉
 
-> **O "aha":** o card e o header leem o **mesmo** `favoritesProvider`. Favoritar atualiza os dois **sem passar estado por parâmetro** — é o fim do prop drilling.
+## Ex2 · TASK 5 — botão "limpar" 🧑‍💻
+No `AppBar` `actions`, antes do contador:
+```dart
+IconButton(
+  icon: const Icon(Icons.delete_outline),
+  onPressed: () => ref.read(favoritesProvider.notifier).clear(),
+)
+```
+(precisa do `clear()` no notifier — TASK 2.) ✅ teste *"limpar zera o contador"*.
+
+## Ex3 · TASK 6 — escreva um teste 🧑‍💻
+`test/favorites_test.dart` — teste o provider **isolado** (sem UI):
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:filmes_flutter/state/favorites.dart';
+
+void main() {
+  test('favoritos: toggle e clear', () {
+    final c = ProviderContainer(); addTearDown(c.dispose);
+    expect(c.read(favoritesProvider), isEmpty);
+    c.read(favoritesProvider.notifier).toggle(1);
+    expect(c.read(favoritesProvider).contains(1), isTrue);
+    // complete você: toggle(1) de novo remove · depois clear() esvazia
+  });
+}
+```
+> `ProviderContainer` = um "mini-app" pra testar o provider sem tela.
+
+> **O "aha":** card, contador e limpar leem/escrevem o **mesmo** `favoritesProvider` — sem passar estado por parâmetro. É o fim do prop drilling.

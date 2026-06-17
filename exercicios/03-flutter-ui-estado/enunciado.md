@@ -1,55 +1,56 @@
-# Atividade 3 — App Flutter: UI + Estado (15 pts)
+# Atividade 3 — App Flutter: UI + Estado + Testes (15 pts)
 
 **Disciplina:** Arquitetura de Aplicações Móveis e Multiplataforma
 **Aula:** 3 (17/06/2026) · **Entrega:** até **23/06/2026 23:59**
 **Modalidade:** individual · **Dificuldade:** ⭐⭐ Médio
 **Auto-grade:** ✅ (J.A.R.V.I.S. roda `flutter test` no seu PR)
 
-> Na Aula 3 você viu Flutter por dentro — **widgets, composição e estado com Riverpod** — e começou a montar o `MovieCard` no DartPad. **Esta atividade é o término disso, num projeto Flutter de verdade.** Você baixa o projeto (que já roda), completa os scaffolds e faz os **testes ficarem verdes**.
+> Na Aula 3 você viu Flutter por dentro — **widgets, composição e estado com Riverpod** — e começou a montar o `MovieCard` no DartPad. **Esta atividade é o término disso, num projeto Flutter de verdade.** Você baixa o projeto (que já roda), completa os scaffolds e faz os **testes ficarem verdes** — inclusive **um teste que você mesmo escreve**.
 
 ## Objetivos de aprendizagem (Bloom)
-- **Entender** — explicar como a UI do Flutter é uma **árvore de widgets** composta, e por que estado compartilhado pede um *provider* (e não prop drilling).
-- **Aplicar (Ex1)** — **compor** um `MovieCard` com `Card`/`Column`/`Row`/`Text`/`Icon`.
-- **Aplicar/Analisar (Ex2)** — **modelar estado compartilhado** com **Riverpod** (favoritos) refletindo em dois lugares (card + header) a partir de uma única fonte.
-- **Avaliar** — argumentar (1 parágrafo no README) por que o provider escala melhor que passar o estado por parâmetro.
+- **Entender** — explicar a UI do Flutter como **árvore de widgets** e por que estado compartilhado pede um *provider* (e não prop drilling).
+- **Aplicar (Ex1)** — **compor** um `MovieCard` (`Card`/`Column`/`Row`/`Text`/`Icon`).
+- **Aplicar/Analisar (Ex2)** — **modelar estado compartilhado** com **Riverpod** refletindo em 3 lugares (card, contador, botão limpar) a partir de **uma fonte só**.
+- **Aplicar (Ex3)** — **escrever um teste automatizado** do estado (`flutter test` com `ProviderContainer`).
+- **Avaliar** — argumentar (README, 1 parágrafo) por que o provider escala melhor que passar estado por parâmetro.
+
+## 📍 Em aula (🧑‍🏫) × em casa (🧑‍💻)
+Fazemos **juntos em aula** o **TASK 1** (compor o card) e o **TASK 2** (criar o provider) — o modelo de cada padrão. **TASK 3–6 você termina sozinho** (parte solo avaliativa).
 
 ---
 
-## Pré-requisito — setup (na aula a gente começa o download)
+## Setup (na aula a gente começa o download)
 ```bash
-# 1. instale o Flutter:  https://docs.flutter.dev/get-started/install
-flutter doctor          # tudo verde o suficiente pra rodar no Chrome
-
-# 2. fork + clone do SEU fork (repo público da disciplina)
+flutter doctor                          # https://docs.flutter.dev/get-started/install
 cd exercicios/03-flutter-ui-estado/pratica
 flutter pub get
-flutter run -d chrome   # o app já abre (lista de filmes) — sem emulador, sem rede
+flutter run -d chrome                   # o app já abre (lista de filmes), sem emulador/rede
+flutter test                            # os testes começam VERMELHOS — é o que você deixa verde
 ```
-> **Não precisa de emulador nem token.** `flutter run -d chrome` roda no navegador.
-> Veja se já está no caminho: rode `flutter test` — os 2 testes devem aparecer **vermelhos** (é o que você vai deixar verde).
 
 ---
 
-> **📍 Em aula × em casa:** fazemos **juntos (🧑‍🏫)** o **TASK 1** (compor o card) e o **TASK 2** (criar o provider) — o modelo de cada padrão. Os **TASK 3 e 4 (🧑‍💻)** você termina **sozinho** (parte solo avaliativa).
+## Exercício 1 — UI: componha o `MovieCard`
+🧑‍🏫 **TASK 1** (`lib/widgets/movie_card.dart`): hoje o card mostra **só o título**. Componha:
+- `Card` → `Padding(16)` → `Column` (`crossAxisAlignment: .start`, `mainAxisSize: .min`): **título** (20, negrito) · **nota** (`Row` com `Icon(Icons.star, color: Colors.amber)` + `Text(' ${movie.rating}')`) · **ano** (`movie.year`, cinza).
 
-## Exercício 1 — UI: componha o `MovieCard` (Ex1)
-Hoje o card mostra **só o título**. Em `lib/widgets/movie_card.dart` (TASK 1), componha:
-- `Card` → `Padding(16)` → `Column` (`crossAxisAlignment: .start`, `mainAxisSize: .min`):
-  - **título** (fonte 20, negrito)
-  - **nota**: `Row` com `Icon(Icons.star, color: Colors.amber)` + `Text(' ${movie.rating}')`
-  - **ano** (`movie.year`, cinza)
+✅ **Verde:** teste *"Ex1 — MovieCard mostra título, nota (⭐) e ano"*.
 
-✅ **Verde quando:** o teste *"Ex1 — MovieCard mostra título, nota (⭐) e ano"* passa.
+## Exercício 2 — Estado: favoritos com Riverpod
+Uma fonte só (`favoritesProvider`) refletindo no **card**, no **contador** e no botão **limpar**:
+1. 🧑‍🏫 **TASK 2** (`state/favorites.dart`): `favoritesProvider` (`Notifier<Set<int>>` com `toggle(id)` **e** `clear()`).
+2. 🧑‍💻 **TASK 3** (`widgets/movie_card.dart`): vire `ConsumerWidget`, leia `ref.watch(favoritesProvider)` e adicione um coração (`IconButton` `favorite`/`favorite_border`) que chama `toggle`.
+3. 🧑‍💻 **TASK 4** (`screens/home_screen.dart`): vire `ConsumerWidget` e mostre `♥ <nº>` (`ref.watch(favoritesProvider).length`).
+4. 🧑‍💻 **TASK 5** (`screens/home_screen.dart`): botão **limpar** (`IconButton(Icons.delete_outline)`) que chama `clear()`.
 
-## Exercício 2 — Estado: favoritos com Riverpod (Ex2)
-Estado compartilhado a partir de **uma fonte só** (`favoritesProvider`), refletindo no **card** e no **contador do header**:
-1. **TASK 2** — `lib/state/favorites.dart`: implemente o `favoritesProvider` (`Notifier<Set<int>>` com `toggle(id)`).
-2. **TASK 3** — `lib/widgets/movie_card.dart`: vire `ConsumerWidget`, leia `ref.watch(favoritesProvider)` e adicione um coração (`IconButton` `favorite`/`favorite_border`) que chama `toggle`.
-3. **TASK 4** — `lib/screens/home_screen.dart`: vire `ConsumerWidget` e mostre `♥ <nº>` lendo `ref.watch(favoritesProvider).length`.
+✅ **Verde:** *"Ex2 — favoritar reflete…"* + *"Ex2 — limpar zera o contador"*.
 
-✅ **Verde quando:** o teste *"Ex2 — favoritar reflete no card e no contador do header"* passa (favoritar → `♥ 1` + coração preenchido).
+> **Prova do estado compartilhado:** card, contador e limpar leem/escrevem o **mesmo** provider — sem passar nada por parâmetro.
 
-> **A prova do estado compartilhado:** o coração (card) e o contador (header) leem o **mesmo** provider — favoritar num lugar atualiza o outro **sem passar nada por parâmetro**.
+## Exercício 3 — Testes: você escreve
+🧑‍💻 **TASK 6** (`test/favorites_test.dart`): escreva um teste **unitário** do `favoritesProvider` com `ProviderContainer` (sem UI): começa vazio → `toggle(1)` adiciona → `toggle(1)` remove → `clear()` esvazia. (Há um modelo comentado no arquivo.)
+
+✅ **Verde:** seu teste em `test/favorites_test.dart` passa (`flutter test`).
 
 ---
 
@@ -57,15 +58,16 @@ Estado compartilhado a partir de **uma fonte só** (`favoritesProvider`), reflet
 | # | Critério | Pts | Como é medido |
 |---|---|---|---|
 | 1 | App compila e roda (`flutter run` / `flutter analyze` limpo) | 2 | manual (eliminatório) |
-| 2 | **Ex1** · `MovieCard` compõe título + nota (⭐) + ano | 5 | `flutter test` (Ex1 verde) |
-| 3 | **Ex2** · `favoritesProvider` + card favoritando + contador no header | 6 | `flutter test` (Ex2 verde) |
-| 4 | README — como rodar + **1 parágrafo**: por que provider > prop drilling | 2 | manual (Canvas) |
+| 2 | **Ex1** · `MovieCard` compõe título + nota (⭐) + ano | 3 | `flutter test` |
+| 3 | **Ex2** · favoritar reflete no card + contador | 4 | `flutter test` |
+| 4 | **Ex2** · botão limpar zera o estado | 2 | `flutter test` |
+| 5 | **Ex3** · teste autoral do provider passa | 3 | `flutter test` |
+| 6 | README — como rodar + **1 parágrafo**: por que provider > prop drilling | 1 | manual (Canvas) |
 
-> O autograder posta uma **nota mínima** (a parte de `flutter test`); compilar/rodar e o parágrafo do README são avaliados na leitura (Canvas). A final sai no Canvas.
+> O autograder posta uma **nota mínima** (a parte de `flutter test`); compilar/rodar e o parágrafo do README são avaliados na leitura. A final sai no Canvas.
 
 ## Entrega
-- **Fork + Pull Request** no repo público da disciplina; cole o link do PR no Canvas.
-- O **J.A.R.V.I.S.** roda `flutter test` a cada commit e comenta o resultado.
-- **Hands-on da aula não pontua** — a entrega solo (deixar os testes verdes) vale os 15 pts.
+- **Fork + Pull Request** no repo público; cole o link no Canvas. `flutter test` é o gate.
+- **Hands-on da aula não pontua** — a entrega solo (testes verdes) vale os 15 pts.
 
-> **Bridging nativo entra na Aula 4** (KMP + Platform Channel) — aqui o foco é **UI + estado**.
+> **Bridging nativo entra na Aula 4** (KMP + Platform Channel) — aqui o foco é **UI + estado + testes**.

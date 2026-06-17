@@ -10,18 +10,20 @@ flutter run -d chrome   # abre no navegador — sem emulador, sem rede/token
 
 ## Testar (é o gate da Atividade 3)
 ```bash
-flutter test            # 2 testes: Ex1 (UI do card) e Ex2 (favoritos/estado)
+flutter test            # Ex1 (card) · Ex2 (favoritar/limpar) · Ex3 (seu teste)
 flutter analyze         # precisa ficar limpo
 ```
 Comece com os testes **vermelhos**; deixe-os **verdes**.
 
-## O que completar
-| TASK | Arquivo | O quê |
-|---|---|---|
-| 1 | `lib/widgets/movie_card.dart` | compor o card (título + ⭐ nota + ano) |
-| 2 | `lib/state/favorites.dart` | `favoritesProvider` (Riverpod) |
-| 3 | `lib/widgets/movie_card.dart` | coração favoritando (`ConsumerWidget` + `ref`) |
-| 4 | `lib/screens/home_screen.dart` | contador `♥ N` no header |
+## O que completar (🧑‍🏫 aula · 🧑‍💻 casa)
+| TASK | Arquivo | O quê | |
+|---|---|---|---|
+| 1 | `lib/widgets/movie_card.dart` | compor o card (título + ⭐ nota + ano) | 🧑‍🏫 |
+| 2 | `lib/state/favorites.dart` | `favoritesProvider` (`toggle` + `clear`) | 🧑‍🏫 |
+| 3 | `lib/widgets/movie_card.dart` | coração favoritando (`ConsumerWidget` + `ref`) | 🧑‍💻 |
+| 4 | `lib/screens/home_screen.dart` | contador `♥ N` no header | 🧑‍💻 |
+| 5 | `lib/screens/home_screen.dart` | botão **limpar** favoritos | 🧑‍💻 |
+| 6 | `test/favorites_test.dart` | **você escreve** um teste do provider | 🧑‍💻 |
 
 Veja o `guia-passo-a-passo.md` (na pasta do exercício) e o `enunciado.md` (rubrica).
 

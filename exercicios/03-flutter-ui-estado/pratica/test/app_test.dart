@@ -1,7 +1,6 @@
-// test/app_test.dart — a SPEC da atividade (o que o grader checa).
-//
-// Faça estes testes passarem (`flutter test`). Eles são exatamente o que
-// o autograder roda no seu PR.
+// test/app_test.dart — SPEC da atividade (o que o grader checa).
+// Faça estes testes passarem (`flutter test`). NÃO edite este arquivo —
+// seu teste autoral vai em test/favorites_test.dart (Ex3).
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,7 +22,6 @@ void main() {
         ),
       ),
     );
-
     expect(find.text('Matrix'), findsOneWidget);
     expect(find.text(' 8.7'), findsOneWidget);
     expect(find.text('1999 · Ficção'), findsOneWidget);
@@ -31,20 +29,23 @@ void main() {
   });
 
   testWidgets('Ex2 — favoritar reflete no card e no contador do header', (tester) async {
-    await tester.pumpWidget(
-      const ProviderScope(child: MaterialApp(home: HomeScreen())),
-    );
+    await tester.pumpWidget(const ProviderScope(child: MaterialApp(home: HomeScreen())));
     await tester.pumpAndSettle();
-
-    // contador começa em 0
     expect(find.text('♥ 0'), findsOneWidget);
-
-    // toca no 1º coração (estado vazio → favorite_border)
     await tester.tap(find.byIcon(Icons.favorite_border).first);
     await tester.pump();
-
-    // contador vira 1 e o coração fica preenchido
     expect(find.text('♥ 1'), findsOneWidget);
     expect(find.byIcon(Icons.favorite), findsWidgets);
+  });
+
+  testWidgets('Ex2 — "limpar" zera o contador (estado compartilhado)', (tester) async {
+    await tester.pumpWidget(const ProviderScope(child: MaterialApp(home: HomeScreen())));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.favorite_border).first);
+    await tester.pump();
+    expect(find.text('♥ 1'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.delete_outline));
+    await tester.pump();
+    expect(find.text('♥ 0'), findsOneWidget);
   });
 }
