@@ -1,7 +1,8 @@
 // src/hooks/useTmdb.ts — React wrapper em cima do service
 
 import { useState, useEffect, useCallback } from 'react';
-import { fetchPopularMovies, isTokenMissing, posterUrl } from '../services/tmdb';
+import { isTokenMissing, posterUrl } from '../services/tmdb';
+import { moviesRepository } from '../repositories/moviesRepository';
 import type { Movie } from '../types/movie';
 
 export { isTokenMissing, posterUrl };
@@ -25,10 +26,10 @@ export function usePopularMovies() {
     const load = async () => {
       try {
         setLoading(true);
-        const response = await fetchPopularMovies(page);
+        const results = await moviesRepository.getPopularMovies(page, 'NetworkFirst');
         if (!cancelled) {
-          setMovies(prev => page === 1 ? response.results : [...prev, ...response.results]);
-          setHasMore(page < response.total_pages);
+          setMovies(prev => page === 1 ? results : [...prev, ...results]);
+          setHasMore(results.length > 0);
         }
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err : null);
