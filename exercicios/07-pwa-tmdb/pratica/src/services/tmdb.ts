@@ -16,6 +16,16 @@ export const tmdbClient = axios.create({
   headers: { Authorization: `Bearer ${TOKEN}` },
 });
 
+// Simulador de offline — usado pelo NetworkToggle (só em dev)
+let _simulateOffline = false;
+export const setSimulateOffline = (v: boolean) => { _simulateOffline = v; };
+export const isSimulatingOffline = () => _simulateOffline;
+
+tmdbClient.interceptors.request.use((config) => {
+  if (_simulateOffline) throw new Error('Rede desligada (simulado)');
+  return config;
+});
+
 // ── TODO 1 ─────────────────────────────────────────────────────────────────
 // Implemente fetchPopularMovies usando tmdbClient.
 //

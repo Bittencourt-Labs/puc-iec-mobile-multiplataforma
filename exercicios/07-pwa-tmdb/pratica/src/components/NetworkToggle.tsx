@@ -1,0 +1,42 @@
+// src/components/NetworkToggle.tsx — dev tool pra simular offline
+
+import { useState } from 'react';
+import { setSimulateOffline } from '../services/tmdb';
+
+export function NetworkToggle() {
+  const [offline, setOffline] = useState(false);
+
+  const toggle = () => {
+    const next = !offline;
+    setSimulateOffline(next);
+    setOffline(next);
+  };
+
+  return (
+    <div style={styles.wrap}>
+      <button onClick={toggle} style={{ ...styles.btn, ...(offline ? styles.offline : styles.online) }}>
+        {offline ? '📵 Offline' : '🌐 Online'}
+      </button>
+      {offline && (
+        <span style={styles.hint}>
+          Scroll ↓ ou recarregue pra ver o cache IndexedDB
+        </span>
+      )}
+    </div>
+  );
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  wrap: { display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0' },
+  btn: {
+    border: 'none',
+    borderRadius: 4,
+    padding: '4px 10px',
+    fontSize: 12,
+    fontWeight: 700,
+    cursor: 'pointer',
+  },
+  online:  { background: '#2e7d32', color: '#fff' },
+  offline: { background: '#b71c1c', color: '#fff' },
+  hint: { color: '#90a4ae', fontSize: 11 },
+};

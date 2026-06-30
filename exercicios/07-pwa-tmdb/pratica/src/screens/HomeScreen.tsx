@@ -7,6 +7,7 @@ import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { AppHeader } from '../components/AppHeader';
 import { MovieCard } from '../components/MovieCard';
 import { MovieCardSkeleton } from '../components/MovieCardSkeleton';
+import { NetworkToggle } from '../components/NetworkToggle';
 import { ErrorScreen } from './ErrorScreen';
 import { TokenMissingScreen } from './TokenMissingScreen';
 import { styles } from './HomeScreen.styles';
@@ -29,6 +30,7 @@ export function HomeScreen() {
   return (
     <main style={styles.main}>
       <AppHeader favoritesCount={count} />
+      <NetworkToggle />
 
       <input
         type="search"
