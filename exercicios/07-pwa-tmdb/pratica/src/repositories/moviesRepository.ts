@@ -29,11 +29,14 @@ async function networkFirst(page: number): Promise<Movie[]> {
     saveMovies(page, results).catch(() => {}); // fire-and-forget — falha no save não quebra o fetch
     return results;
   } catch (err) {
-    const cached = await loadMovies(page); // TODO 3b — sem implementação, retorna undefined
+    const cached = await loadMovies(page);
     if (cached) return cached;
-    const offlineErr = err instanceof Error ? err : new Error(String(err));
-    (offlineErr as Error & { offline: boolean }).offline = true;
-    throw offlineErr;
+    // Sem cache + sem rede → vazio (view renderiza só o que tem, sem saber a origem)
+    // Relança só se for erro real de API (401, 500 etc), não conectividade
+    const isConnectivity = err instanceof Error &&
+      (err.message.includes('simulado') || err.message.includes('Network') || err.message.includes('ERR_'));
+    if (isConnectivity) return [];
+    throw err;
   }
 }
 

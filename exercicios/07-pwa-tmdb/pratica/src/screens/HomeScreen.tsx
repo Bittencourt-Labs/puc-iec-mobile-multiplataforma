@@ -8,8 +8,8 @@ import { AppHeader } from '../components/AppHeader';
 import { MovieCard } from '../components/MovieCard';
 import { MovieCardSkeleton } from '../components/MovieCardSkeleton';
 import { NetworkToggle } from '../components/NetworkToggle';
-import { ErrorScreen } from './ErrorScreen';
 import { OfflineScreen } from './OfflineScreen';
+import { ErrorScreen } from './ErrorScreen';
 import { TokenMissingScreen } from './TokenMissingScreen';
 import { styles } from './HomeScreen.styles';
 
@@ -22,13 +22,13 @@ export function HomeScreen() {
   useInfiniteScroll(sentinelRef, loadMore);
 
   if (isTokenMissing) return <TokenMissingScreen />;
-  if (error && !(error as Error & { offline?: boolean }).offline) return <ErrorScreen error={error} />;
-
-  const isOfflineEmpty = !!(error as (Error & { offline?: boolean }) | null)?.offline;
+  if (error) return <ErrorScreen error={error} />;
 
   const visible = search.trim()
     ? movies.filter((m) => m.title.toLowerCase().includes(search.toLowerCase()))
     : movies;
+
+  const isEmpty = !loading && movies.length === 0;
 
   return (
     <main style={styles.main}>
@@ -45,8 +45,8 @@ export function HomeScreen() {
       />
 
       <section>
-        {isOfflineEmpty && <OfflineScreen />}
-        {visible.length === 0 && search && (
+        {isEmpty && <OfflineScreen />}
+        {visible.length === 0 && search && !isEmpty && (
           <p style={{ color: '#90a4ae', textAlign: 'center', padding: 24 }}>
             Nenhum resultado para "{search}"
           </p>
@@ -69,7 +69,6 @@ export function HomeScreen() {
         </section>
       )}
 
-      {/* Sentinel — IntersectionObserver dispara loadMore quando chegar aqui */}
       {hasMore && !loading && <div ref={sentinelRef} style={{ height: 1 }} />}
     </main>
   );
