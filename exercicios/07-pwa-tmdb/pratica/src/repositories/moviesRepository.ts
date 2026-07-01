@@ -26,7 +26,7 @@ export type CacheStrategy = 'NetworkFirst' | 'CacheFirst' | 'StaleWhileRevalidat
 async function networkFirst(page: number): Promise<Movie[]> {
   try {
     const { results } = await fetchPopularMovies(page);
-    await saveMovies(page, results); // TODO 3a — sem implementação, é no-op
+    saveMovies(page, results).catch(() => {}); // fire-and-forget — falha no save não quebra o fetch
     return results;
   } catch (err) {
     const cached = await loadMovies(page); // TODO 3b — sem implementação, retorna undefined
