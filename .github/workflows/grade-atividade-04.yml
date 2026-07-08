@@ -41,7 +41,7 @@ jobs:
       - name: Unit tests
         id: unit
         working-directory: _pr/exercicios/04-pwa-tmdb/pratica
-        run: npm test -- --reporter=json --outputFile=unit-results.json --forceExit
+        run: npm test -- --reporter=json --outputFile=unit-results.json
         continue-on-error: true
 
       # 5. rodar validator estrutural (grader do prof, lê entrega em _pr/)
