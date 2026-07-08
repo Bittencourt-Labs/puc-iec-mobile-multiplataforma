@@ -51,7 +51,7 @@ Conceitos, requisitos e padrões arquiteturais para aplicações móveis e multi
 | Atividade 2 — App RN: navegação + estado | 15 |
 | Atividade 3 — Flutter: UI + Estado + Testes | 15 |
 | Atividade 4 — PWA TMDB offline-first | 15 |
-| Atividade 6 — KMP: Filmes Populares | 10 |
+| Atividade 5 — KMP: Filmes Populares | 10 |
 | **Projeto Final em Grupo** | **30** |
 
 Cronograma com prazos: [`exercicios/README.md`](./exercicios/README.md).
@@ -95,7 +95,7 @@ Slides da abertura da Aula 2 com tutorial Fork+PR: [`slides/intro-fluxo-pr-githu
 
 ## Auto-grading via CI 🤖
 
-Atividades 2, 3, 4, 6 e o Projeto Final são avaliadas automaticamente em PR. Workflow:
+Atividades 2, 3, 4, 5 e o Projeto Final são avaliadas automaticamente em PR. Workflow:
 
 1. **Fork** este repositório
 2. Edite a pasta `pratica/` do exercício (os `TODO` marcados no código)
@@ -106,7 +106,7 @@ Atividades disponíveis:
 - [A2 — App RN: navegação + estado](./exercicios/02-app-rn-navegacao-estado/)
 - [A3 — Flutter: UI + Estado + Testes](./exercicios/03-flutter-ui-estado/)
 - [A4 — PWA TMDB offline-first](./exercicios/04-pwa-tmdb/)
-- [A6 — KMP: Filmes Populares](./exercicios/06-kmp/)
+- [A5 — KMP: Filmes Populares](./exercicios/05-kmp/)
 - [PF — Projeto Final em Grupo](./exercicios/projeto-final/)
 
 A1 (ADR) é correção manual.

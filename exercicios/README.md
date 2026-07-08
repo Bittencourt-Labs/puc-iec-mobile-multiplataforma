@@ -10,7 +10,7 @@ Atividades assíncronas de cada aula. **Sem gabaritos** — entregas via fork + 
 | 2 | 2 (27/05) | [App RN: navegação + estado](./02-app-rn-navegacao-estado/) | 15 | 10/06/2026 |
 | 3 | 3 (17/06) | [Flutter: UI + Estado + Testes](./03-flutter-ui-estado/) | 15 | 01/07/2026 |
 | 4 | 4 (01/07) | [PWA TMDB offline-first](./04-pwa-tmdb/) | 15 | 08/07/2026 |
-| 6 | 5 (08/07) | [KMP: Filmes Populares](./06-kmp/) | 10 | 15/07/2026 |
+| 5 | 5 (08/07) | [KMP: Filmes Populares](./05-kmp/) | 10 | 15/07/2026 |
 | **PF** | 5 (08/07) | [**Projeto Final em Grupo** — 5 temas × 3 frameworks, E2E Maestro em CI](./projeto-final/) | **30** | a combinar em aula |
 
 Total: **100 pontos**.
